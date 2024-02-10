@@ -17,42 +17,38 @@ class App:
         master.resizable(width=False, height=False)
         master.title("메이플스토리 야누스 알리미")
 
-        # Run button
         self.run_button = tk.Button(master, text="실행", command=self.toggle_script)
         self.run_button.pack(pady=10)
 
-        # Confidence scale
-        self.confidence_label, self.confidence_var, self.confidence_scale = self.create_scale("신뢰도:", 0.0, 1.0, 0.92, self.update_confidence)
+        self.confidence_label = tk.Label(master, text="신뢰도:")
+        self.confidence_label.pack()
 
-        # Delay scale
-        self.delay_label, self.delay_var, self.delay_scale = self.create_scale("딜레이 (초):", 1, 7, 1.0, self.update_delay_display)
+        self.confidence_scale = tk.Scale(master, from_=0.0, to=1.0, orient="horizontal", length=200, resolution=0.01)
+        self.confidence_scale.set(0.92)  # 기본 신뢰도 설정
+        self.confidence_scale.pack(pady=5)
 
-        # Image selection using radio buttons
+        self.delay_label = tk.Label(master, text="딜레이 (초):")
+        self.delay_label.pack()
+
+        self.delay_var = tk.DoubleVar()
+        self.delay_scale = ttk.Scale(master, from_=1, to=7, orient="horizontal", length=200, variable=self.delay_var)
+        self.delay_scale.set(1.0)  # 기본 딜레이 설정
+        self.delay_scale.pack(pady=5)
+
+        self.delay_display = tk.Label(master, text="현재 딜레이: 1.0 초")
+        self.delay_display.pack()
+
         self.image_var = tk.StringVar(value='sol.png')
-        self.create_radio_button("솔 에르다", 'sol.png')
-        self.create_radio_button("에르다 파운틴", 'fountain.png')
+        self.sol_radio = tk.Radiobutton(master, text="솔 에르다", variable=self.image_var, value='sol.png')
+        self.sol_radio.pack()
+
+        self.fountain_radio = tk.Radiobutton(master, text="에르다 파운틴", variable=self.image_var, value='fountain.png')
+        self.fountain_radio.pack()
 
         self.is_running = False
-        self.script_thread = None
 
-        # Close window event handling
+        # 창 닫기 이벤트 처리
         master.protocol("WM_DELETE_WINDOW", self.on_closing)
-
-    def create_scale(self, label_text, scale_from, scale_to, default_value, command):
-        label = tk.Label(self.master, text=label_text)
-        label.pack()
-
-        scale_var = tk.DoubleVar()
-        scale = ttk.Scale(self.master, from_=scale_from, to=scale_to, orient="horizontal", length=200, variable=scale_var,
-                          command=command)
-        scale.set(default_value)
-        scale.pack(pady=5)
-
-        return label, scale_var, scale
-
-    def create_radio_button(self, text, value):
-        radio_button = tk.Radiobutton(self.master, text=text, variable=self.image_var, value=value)
-        radio_button.pack()
 
     def on_closing(self):
         self.stop_script()
@@ -68,8 +64,8 @@ class App:
         if not self.is_running:
             self.is_running = True
             self.run_button.config(text="중지")
-            confidence = self.confidence_var.get()
-            delay = self.delay_var.get()
+            confidence = self.confidence_scale.get()
+            delay = self.delay_scale.get()
             selected_image = self.image_var.get()
             self.script_thread = Thread(target=self.main_loop, args=(confidence, delay, selected_image))
             self.script_thread.start()
@@ -78,34 +74,28 @@ class App:
         if self.is_running:
             self.is_running = False
             self.run_button.config(text="실행")
-            # Wait for the script thread to complete
-            if self.script_thread and self.script_thread.is_alive():
+            # 스크립트 스레드가 완료될 때까지 대기
+            if self.script_thread.is_alive():
                 self.script_thread.join()
 
     def main_loop(self, confidence, delay, selected_image):
         while self.is_running:
             try:
                 pyautogui.locateCenterOnScreen(os.path.join(BASE_DIR, f'resource\\{selected_image}'), confidence=confidence)
-
-                sleep(delay)  # Add delay before playing the sound
+                
+                sleep(delay)  # 딜레이 추가
                 pygame.mixer.music.play()
                 print('감지됨')
             except pyautogui.ImageNotFoundException:
                 print('실행 중')
                 sleep(0.1)
 
-    def update_confidence(self, *_):
-        # Update confidence scale
-        current_confidence = self.confidence_var.get()
-        self.confidence_label.config(text=f"현재 신뢰도: {current_confidence:.2f}")
-
     def update_delay_display(self, *_):
-        # Update delay scale
-        current_delay = self.delay_var.get()
-        self.delay_label.config(text=f"현재 딜레이: {current_delay:.1f} 초")
-
+        current_delay = self.delay_scale.get()
+        self.delay_display.config(text=f"현재 딜레이: {current_delay:.1f} 초")
 
 if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)
+    app.delay_scale.config(command=app.update_delay_display)  # 연결된 함수 추가
     root.mainloop()
