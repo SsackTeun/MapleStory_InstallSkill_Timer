@@ -43,7 +43,8 @@ class App:
         label.pack()
 
         scale_var = tk.DoubleVar()
-        scale = ttk.Scale(self.master, from_=scale_from, to=scale_to, orient="horizontal", length=200, variable=scale_var)
+        scale = ttk.Scale(self.master, from_=scale_from, to=scale_to, orient="horizontal", length=200, variable=scale_var,
+                          command=command)
         scale.set(default_value)
         scale.pack(pady=5)
 
