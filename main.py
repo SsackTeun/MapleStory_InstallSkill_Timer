@@ -6,6 +6,7 @@ import pygame
 from time import sleep
 import os
 
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 pygame.mixer.init()
 pygame.mixer.music.load(os.path.join(BASE_DIR, 'resource\\sound.wav'))
@@ -110,7 +111,7 @@ class App:
                 log.info('confidence : ' + str(confidence))
                 log.info('selected_image :' + selected_image)
                 log.info('실행 중')
-                sleep(0.1)
+                sleep(0.3)
 
     def update_delay_display(self, *_):
         current_delay = self.delay_scale.get()
