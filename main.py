@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
 from threading import Thread
 import pyautogui
 import pygame
@@ -13,37 +12,47 @@ pygame.mixer.music.load(os.path.join(BASE_DIR, 'resource\\sound.wav'))
 class App:
     def __init__(self, master):
         self.master = master
-        master.geometry("300x250")
+        self.image_var = tk.StringVar(value='sol.png')  # Initialize image_var
+        master.geometry("300x300")
         master.resizable(width=False, height=False)
         master.title("메이플스토리 야누스 알리미")
 
+        # 실행
         self.run_button = tk.Button(master, text="실행", command=self.toggle_script)
-        self.run_button.pack(pady=10)
+        self.run_button.pack(pady=5)  # Increase the vertical spacing
 
+        # 신뢰도
+        # 라벨
         self.confidence_label = tk.Label(master, text="신뢰도:")
-        self.confidence_label.pack()
+        self.confidence_label.pack(pady=0)  # Increase the vertical spacing
 
+        # 스케일 바
         self.confidence_scale = tk.Scale(master, from_=0.0, to=1.0, orient="horizontal", length=200, resolution=0.01)
         self.confidence_scale.set(0.92)  # 기본 신뢰도 설정
-        self.confidence_scale.pack(pady=5)
+        self.confidence_scale.pack(pady=0)  # Increase the vertical spacing
 
+        # 딜레이
+        # 라벨
         self.delay_label = tk.Label(master, text="딜레이 (초):")
-        self.delay_label.pack()
+        self.delay_label.pack(pady=2)  # Increase the vertical spacing
 
-        self.delay_var = tk.DoubleVar()
-        self.delay_scale = ttk.Scale(master, from_=1, to=7, orient="horizontal", length=200, variable=self.delay_var)
-        self.delay_scale.set(1.0)  # 기본 딜레이 설정
-        self.delay_scale.pack(pady=5)
+        # 스케일 바
+        self.delay_scale = tk.Scale(master, from_=0.0, to=8.0, orient="horizontal", length=200, resolution=0.1)
+        self.delay_scale.set(0.0)  # 기본 딜레이 설정
+        self.delay_scale.pack(pady=2)  # Increase the vertical spacing
 
         self.delay_display = tk.Label(master, text="현재 딜레이: 1.0 초")
-        self.delay_display.pack()
+        self.delay_display.pack(pady=2)  # Increase the vertical spacing
 
-        self.image_var = tk.StringVar(value='sol.png')
-        self.sol_radio = tk.Radiobutton(master, text="솔 에르다", variable=self.image_var, value='sol.png')
-        self.sol_radio.pack()
+        self.image_options = {
+            '솔 에르다 1~10레벨 기준': 'sol.png',
+            '솔 에르다 30레벨 기준': 'sol_30.png',
+            '에르다 파운틴': 'fountain.png',
+        }
 
-        self.fountain_radio = tk.Radiobutton(master, text="에르다 파운틴", variable=self.image_var, value='fountain.png')
-        self.fountain_radio.pack()
+        for text, value in self.image_options.items():
+            radio_button = tk.Radiobutton(master, text=text, variable=self.image_var, value=value)
+            radio_button.pack(pady=2)
 
         self.is_running = False
 
@@ -82,11 +91,13 @@ class App:
         while self.is_running:
             try:
                 pyautogui.locateCenterOnScreen(os.path.join(BASE_DIR, f'resource\\{selected_image}'), confidence=confidence)
-                
                 sleep(delay)  # 딜레이 추가
                 pygame.mixer.music.play()
                 print('감지됨')
             except pyautogui.ImageNotFoundException:
+                print(delay)
+                print('confidence : ' + str(confidence))
+                print('selected_image :' + selected_image)
                 print('실행 중')
                 sleep(0.1)
 
