@@ -23,45 +23,59 @@ log.addHandler(stream_handler)
 class App:
     def __init__(self, master):
         self.master = master
+        self.is_running = False  # Add this line to define is_running attribute
         self.image_var = tk.StringVar(value='sol.png')  # Initialize image_var
         self.sound_file_path = os.path.join(BASE_DIR, 'resource', 'sound.wav')
 
-        master.geometry("450x250")
+        master.geometry("500x350")
         master.resizable(width=False, height=False)
-        master.title("0.8v 메이플스토리 설치기 타이머")
+        master.title("v0.9 메이플스토리 설치기 타이머")
+
+        # Create a frame to hold the divided layout
+        divided_frame = tk.Frame(master, bd=1, relief=tk.GROOVE)
+        divided_frame.grid(row=0, column=0, padx=10, pady=10)
+
+        # Configure the columns to have equal weight
+        divided_frame.columnconfigure(0, weight=1)
+        divided_frame.columnconfigure(1, weight=1)
+
+        # Left side (Controls)
+        controls_frame = tk.Frame(divided_frame, bd=0, relief=tk.GROOVE)
+        controls_frame.grid(row=0, column=0)
 
         # 실행
-        self.run_button = tk.Button(master, text="실행", command=self.toggle_script)
-        self.run_button.grid(row=0, column=0, padx=5, pady=15)  # Increase the horizontal and vertical spacing
+        self.run_button = tk.Button(controls_frame, text="실행", command=self.toggle_script, bd=5, relief=tk.GROOVE)
+        self.run_button.grid(row=0, column=0, padx=5, pady=15)
 
         # 사운드 파일 선택 버튼
-        self.sound_button = tk.Button(master, text="사운드 파일 선택", command=self.choose_sound_file)
+        self.sound_button = tk.Button(controls_frame, text="사운드 파일 선택", command=self.choose_sound_file, bd=5, relief=tk.GROOVE)
         self.sound_button.grid(row=0, column=1, padx=5, pady=15)
 
         # 현재 선택된 파일 이름 표시 Label
-        self.selected_file_label = tk.Label(master, text=f"현재 선택된 파일: {os.path.basename(self.sound_file_path)}")
+        self.selected_file_label = tk.Label(controls_frame, text=f"현재 선택된 파일: {os.path.basename(self.sound_file_path)}", bd=0, relief=tk.GROOVE)
         self.selected_file_label.grid(row=0, column=2, padx=5, pady=15)
 
         # 신뢰도
         # 라벨
-        self.confidence_label = tk.Label(master, text="신뢰도:")
+        self.confidence_label = tk.Label(controls_frame, text="신뢰도 :", bd=0, relief=tk.GROOVE)
         self.confidence_label.grid(row=1, column=0, pady=5)
 
         # 스케일 바
-        self.confidence_scale = tk.Scale(master, from_=0.0, to=1.0, orient="horizontal", length=200, resolution=0.01)
+        self.confidence_scale = tk.Scale(controls_frame, from_=0.0, to=1.0, orient="horizontal", length=200, resolution=0.01, bd=2, relief=tk.GROOVE)
         self.confidence_scale.set(0.92)  # 기본 신뢰도 설정
         self.confidence_scale.grid(row=1, column=1, pady=5)
 
         # 딜레이
         # 라벨
-        self.delay_label = tk.Label(master, text="딜레이 (초):")
+        self.delay_label = tk.Label(controls_frame, text="딜레이 (초) :", bd=0, relief=tk.GROOVE)
         self.delay_label.grid(row=2, column=0, pady=5)
 
         # 스케일 바
-        self.delay_scale = tk.Scale(master, from_=0.0, to=8.0, orient="horizontal", length=200, resolution=0.1)
+        self.delay_scale = tk.Scale(controls_frame, from_=0.0, to=8.0, orient="horizontal", length=200, resolution=0.1, bd=2, relief=tk.GROOVE)
         self.delay_scale.set(0.0)  # 기본 딜레이 설정
         self.delay_scale.grid(row=2, column=1, pady=5)
 
+        # Image Options
         self.image_options = {
             '솔 에르다 1~10레벨 기준': 'sol.png',
             '솔 에르다 30레벨 기준': 'sol_30.png',
@@ -70,14 +84,22 @@ class App:
 
         row_counter = 4
         for text, value in self.image_options.items():
-            radio_button = tk.Radiobutton(master, text=text, variable=self.image_var, value=value)
-            radio_button.grid(row=row_counter, column=0, columnspan=2, pady=2)
+            radio_button = tk.Radiobutton(controls_frame, text=text, variable=self.image_var, value=value, bd=0,
+                                          relief=tk.GROOVE, anchor="w")
+            radio_button.grid(row=row_counter, column=0, columnspan=2, padx=5, pady=2, sticky="w")
             row_counter += 1
 
-        self.is_running = False
+        # Right side (Image)
+        image_frame = tk.Frame(divided_frame, bd=0, relief=tk.GROOVE)
+        image_frame.grid(row=0, column=2, padx=10)
 
-        self.confidence_label = tk.Label(master, text="created by : 방금나갔어")
-        self.confidence_label.grid(row=6, column=2, pady=5)
+        self.createdBy_label = tk.Label(controls_frame, text="created by : 방금나갔어(노바)")
+        self.createdBy_label.grid(row=6, column=2, pady=5)
+
+        # Corrected image loading
+        self.createdBy_img = tk.PhotoImage(file="./resource/방금나갔어.png")
+        self.createdBy_img_label = tk.Label(controls_frame, image=self.createdBy_img, bd=0, relief=tk.GROOVE)
+        self.createdBy_img_label.grid(row=2, column=2, pady=5, padx=5)
 
         # 창 닫기 이벤트 처리
         master.protocol("WM_DELETE_WINDOW", self.on_closing)
@@ -137,5 +159,4 @@ class App:
 if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)
-
     root.mainloop()
