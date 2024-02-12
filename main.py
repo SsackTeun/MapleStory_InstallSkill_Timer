@@ -1,4 +1,5 @@
 import tkinter as tk
+import logging
 from threading import Thread
 import pyautogui
 import pygame
@@ -8,6 +9,16 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 pygame.mixer.init()
 pygame.mixer.music.load(os.path.join(BASE_DIR, 'resource\\sound.wav'))
+
+
+#Logging Conf
+log = logging.getLogger()
+log.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(formatter)
+log.addHandler(stream_handler)
 
 class App:
     def __init__(self, master):
@@ -93,12 +104,12 @@ class App:
                 pyautogui.locateCenterOnScreen(os.path.join(BASE_DIR, f'resource\\{selected_image}'), confidence=confidence)
                 sleep(delay)  # 딜레이 추가
                 pygame.mixer.music.play()
-                print('감지됨')
+                log.info('감지됨')
             except pyautogui.ImageNotFoundException:
-                print(delay)
-                print('confidence : ' + str(confidence))
-                print('selected_image :' + selected_image)
-                print('실행 중')
+                log.info('%s',delay)
+                log.info('confidence : ' + str(confidence))
+                log.info('selected_image :' + selected_image)
+                log.info('실행 중')
                 sleep(0.1)
 
     def update_delay_display(self, *_):
