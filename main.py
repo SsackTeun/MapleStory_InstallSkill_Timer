@@ -77,8 +77,8 @@ class App:
 
         # Image Options
         self.image_options = {
-            '솔 에르다 1~10레벨 기준': 'sol.png',
-            '솔 에르다 30레벨 기준': 'sol_30.png',
+            '솔 야누스 1~10레벨 기준': 'sol.png',
+            '솔 야누스 30레벨 기준': 'sol_30.png',
             '에르다 파운틴': 'fountain.png',
         }
 
@@ -97,7 +97,8 @@ class App:
         self.createdBy_label.grid(row=6, column=2, pady=5)
 
         # Corrected image loading
-        self.createdBy_img = tk.PhotoImage(file="./resource/방금나갔어.png")
+        self.createdBy_img = tk.PhotoImage(file=os.path.join(BASE_DIR, f'resource\\charactor.png'))
+        print(os.path.join(BASE_DIR, f'resource\\charactor.png'))
         self.createdBy_img_label = tk.Label(controls_frame, image=self.createdBy_img, bd=0, relief=tk.GROOVE)
         self.createdBy_img_label.grid(row=2, column=2, pady=5, padx=5)
 
