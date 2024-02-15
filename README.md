@@ -1,4 +1,4 @@
-[requirements.txt](https://github.com/SsackTeun/MapleStory_InstallSkill_Timer/files/14295493/requirements.txt)download : https://drive.google.com/file/d/1wJ_2QsbkMd5cVQDfsk2fBreoUUskActv/view?usp=sharing
+download : https://drive.google.com/file/d/1wJ_2QsbkMd5cVQDfsk2fBreoUUskActv/view?usp=sharing
 
 ![image](https://github.com/SsackTeun/MapleStory_InstallSkill_Timer/assets/24308378/2d6a1a92-91db-4e24-b201-0f7426f63fc1)
 
