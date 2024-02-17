@@ -12,7 +12,8 @@ v1.1
 
 ### 구동화면
 ---
-![image](https://github.com/SsackTeun/MapleStory_InstallSkill_Timer/assets/24308378/2d6a1a92-91db-4e24-b201-0f7426f63fc1)
+![image](https://github.com/SsackTeun/MapleStory_InstallSkill_Timer/assets/24308378/7e29a5ae-d48d-4142-ac0a-d2f77f228bd3)
+
 
 ### 사용법 
 ---
