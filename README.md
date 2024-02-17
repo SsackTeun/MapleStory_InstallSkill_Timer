@@ -3,6 +3,7 @@
 v1.1
 * 기능추가 : 솔 야누스 20초 때 감지 추가
 * 문구수정 : 신뢰도 -> 유사도
+* 유사도 기본값 수정 : 0.92 -> 0.96
 * 유사도 조절 범위 수정 : 0.92 이하는 의미 없는 값으로 보고, 0.92 ~ 1.0 사이로 조절범위 변경
 * 문구수정 : 딜레이 -> 감지 후 소리 지연 딜레이 (초) 로 변경
 
@@ -43,8 +44,8 @@ v1.1
 ### [NOTICE] dependency
 ---
 * requirements.txt
-  
-### 다운로드 : [https://drive.google.com/file/d/1wJ_2QsbkMd5cVQDfsk2fBreoUUskActv/view?usp=sharing](https://drive.google.com/file/d/1E4nZEGQr6275bq6HIhnyrj41r9zjMQds/view?usp=sharing)
+### 다운로드 1.1v : https://drive.google.com/file/d/1dWrQlEmBLspYscLMpQJlCahwtf2AMfW3/view?usp=sharing  
+### 다운로드 0.9v : [https://drive.google.com/file/d/1wJ_2QsbkMd5cVQDfsk2fBreoUUskActv/view?usp=sharing](https://drive.google.com/file/d/1E4nZEGQr6275bq6HIhnyrj41r9zjMQds/view?usp=sharing)
 
 
 
