@@ -27,7 +27,7 @@ class App:
         self.image_var = tk.StringVar(value='sol_L10_Time10.png')  # Initialize image_var
         self.sound_file_path = os.path.join(BASE_DIR, 'resource', 'sound.wav')
 
-        master.geometry("600x370")
+        master.geometry("520x370")
         master.resizable(width=False, height=False)
         master.title("v1.1 메이플스토리 설치기 타이머")
 
