@@ -24,12 +24,12 @@ class App:
     def __init__(self, master):
         self.master = master
         self.is_running = False  # Add this line to define is_running attribute
-        self.image_var = tk.StringVar(value='sol.png')  # Initialize image_var
+        self.image_var = tk.StringVar(value='sol_L10_Time10.png')  # Initialize image_var
         self.sound_file_path = os.path.join(BASE_DIR, 'resource', 'sound.wav')
 
-        master.geometry("500x350")
+        master.geometry("600x370")
         master.resizable(width=False, height=False)
-        master.title("v0.9 메이플스토리 설치기 타이머")
+        master.title("v1.1 메이플스토리 설치기 타이머")
 
         # Create a frame to hold the divided layout
         divided_frame = tk.Frame(master, bd=1, relief=tk.GROOVE)
@@ -57,28 +57,29 @@ class App:
 
         # 신뢰도
         # 라벨
-        self.confidence_label = tk.Label(controls_frame, text="신뢰도 :", bd=0, relief=tk.GROOVE)
+        self.confidence_label = tk.Label(controls_frame, text="유사도 :", bd=0, relief=tk.GROOVE)
         self.confidence_label.grid(row=1, column=0, pady=5)
 
         # 스케일 바
-        self.confidence_scale = tk.Scale(controls_frame, from_=0.0, to=1.0, orient="horizontal", length=200, resolution=0.01, bd=2, relief=tk.GROOVE)
-        self.confidence_scale.set(0.92)  # 기본 신뢰도 설정
+        self.confidence_scale = tk.Scale(controls_frame, from_=0.92, to=1.0, orient="horizontal", length=200, resolution=0.01, bd=2, relief=tk.GROOVE)
+        self.confidence_scale.set(0.96)  # 기본 신뢰도 설정
         self.confidence_scale.grid(row=1, column=1, pady=5)
 
         # 딜레이
         # 라벨
-        self.delay_label = tk.Label(controls_frame, text="딜레이 (초) :", bd=0, relief=tk.GROOVE)
+        self.delay_label = tk.Label(controls_frame, text="감지 후 소리 \n지연 딜레이 (초) :", bd=0, relief=tk.GROOVE)
         self.delay_label.grid(row=2, column=0, pady=5)
 
         # 스케일 바
-        self.delay_scale = tk.Scale(controls_frame, from_=0.0, to=8.0, orient="horizontal", length=200, resolution=0.1, bd=2, relief=tk.GROOVE)
+        self.delay_scale = tk.Scale(controls_frame, from_=0.0, to=10.0, orient="horizontal", length=200, resolution=0.1, bd=2, relief=tk.GROOVE)
         self.delay_scale.set(0.0)  # 기본 딜레이 설정
         self.delay_scale.grid(row=2, column=1, pady=5)
 
         # Image Options
         self.image_options = {
-            '솔 야누스 1~10레벨 기준': 'sol.png',
-            '솔 야누스 30레벨 기준': 'sol_30.png',
+            '솔 야누스 1~10레벨 기준 10초 남음 기준': 'sol_L10_Time10.png',
+            '솔 야누스 30레벨 기준 10초 남음 기준': 'sol_L30_Time10.png',
+            '솔 야누스 1~10레벨 기준 20초 남음 기준': 'sol_L10_Time20.png',
             '에르다 파운틴': 'fountain.png',
         }
 
