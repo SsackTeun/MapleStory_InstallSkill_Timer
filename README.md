@@ -30,8 +30,10 @@
 ### [NOTICE] dependency
 ---
 * requirements.txt
-  
-### 다운로드 : [https://drive.google.com/file/d/1wJ_2QsbkMd5cVQDfsk2fBreoUUskActv/view?usp=sharing](https://drive.google.com/file/d/1E4nZEGQr6275bq6HIhnyrj41r9zjMQds/view?usp=sharing)
+
+
+### 수정버전 1.1v :    
+### 다운로드  0.9v : [https://drive.google.com/file/d/1wJ_2QsbkMd5cVQDfsk2fBreoUUskActv/view?usp=sharing](https://drive.google.com/file/d/1E4nZEGQr6275bq6HIhnyrj41r9zjMQds/view?usp=sharing)
 
 
 
