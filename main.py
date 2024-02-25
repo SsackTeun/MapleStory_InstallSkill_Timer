@@ -34,7 +34,7 @@ class App:
 
         master.geometry("550x400")
         master.resizable(width=False, height=False)
-        master.title("v1.1 메이플스토리 설치기 타이머")
+        master.title("v1.2 메이플스토리 설치기 타이머")
 
         keyboard.add_hotkey('F11', lambda: self.set_timer(15))
         keyboard.add_hotkey('F12', lambda: self.set_timer(30))

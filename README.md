@@ -1,6 +1,11 @@
 ### 구동화면
 ---
-![image](https://github.com/SsackTeun/MapleStory_InstallSkill_Timer/assets/24308378/2d6a1a92-91db-4e24-b201-0f7426f63fc1)
+![img.png](img.png)
+
+### 업데이트 1.2V
+---
+* 알람 기능 추가 F11, F12 누를시 알람 작동
+* 알람 종료시 탁상시계 알림 소리
 
 ### 사용법 
 ---
@@ -32,7 +37,7 @@
 * requirements.txt
 
 
-### 수정버전 1.1v :    
+### 수정버전 1.2v :    
 ### 다운로드  0.9v : [https://drive.google.com/file/d/1wJ_2QsbkMd5cVQDfsk2fBreoUUskActv/view?usp=sharing](https://drive.google.com/file/d/1E4nZEGQr6275bq6HIhnyrj41r9zjMQds/view?usp=sharing)
 
 
