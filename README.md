@@ -7,6 +7,19 @@
 * 알람 기능 추가 F11, F12 누를시 알람 작동
 * 알람 종료시 탁상시계 알림 소리
 
+### 업데이트
+---
+v1.1
+* 기능추가 : 솔 야누스 20초 때 감지 추가
+* 문구수정 : 신뢰도 -> 유사도
+* 유사도 기본값 수정 : 0.92 -> 0.96
+* 유사도 조절 범위 수정 : 0.92 이하는 의미 없는 값으로 보고, 0.92 ~ 1.0 사이로 조절범위 변경
+* 문구수정 : 딜레이 -> 감지 후 소리 지연 딜레이 (초) 로 변경
+
+* 라디오 버튼이 더 늘어날 경우, 스킬 + 레벨 구간 + 감지 시점 (10초단위) 이렇게 변경할 예정
+* 현재 정상작동하는 해상도는
+* 1920x1200, 1920x1080, 1366x768, 1280x720, 1024x768
+
 ### 사용법 
 ---
 * 기본 값으로 두신 다음 실행버튼을 누르고, 사용하시면 됩니다.
@@ -35,10 +48,8 @@
 ### [NOTICE] dependency
 ---
 * requirements.txt
-
-
-### 수정버전 1.2v :    
-### 다운로드  0.9v : [https://drive.google.com/file/d/1wJ_2QsbkMd5cVQDfsk2fBreoUUskActv/view?usp=sharing](https://drive.google.com/file/d/1E4nZEGQr6275bq6HIhnyrj41r9zjMQds/view?usp=sharing)
+  
+### 다운로드 : [https://drive.google.com/file/d/1wJ_2QsbkMd5cVQDfsk2fBreoUUskActv/view?usp=sharing](https://drive.google.com/file/d/1E4nZEGQr6275bq6HIhnyrj41r9zjMQds/view?usp=sharing)
 
 
 
