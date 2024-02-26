@@ -48,7 +48,8 @@
 ---
 * requirements.txt
   
-### 다운로드 : 1.2v https://drive.google.com/file/d/1Dj3GwKtRQuT9sCy3ctKLzaCrStVFrioO/view?usp=drivesdk
+### 다운로드 : 1.2v 
+https://drive.google.com/file/d/1Dj3GwKtRQuT9sCy3ctKLzaCrStVFrioO/view?usp=drive_link
 
 ### 다운로드 : 1.1v 
 https://drive.google.com/file/d/1dWrQlEmBLspYscLMpQJlCahwtf2AMfW3/view?usp=drivesdk
