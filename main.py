@@ -132,8 +132,7 @@ class App:
         self.timer_30m_button = tk.Button(controls_frame, text="(F12) 30분 타이머 시작", command=lambda: self.set_timer(30), bd=5,
                                           relief=tk.GROOVE)
 
-        self.timer_15m_button = tk.Button(controls_frame, text="(F11) 15분 타이머 시작", command=lambda: self.set_timer(15),
-                                          bd=5,
+        self.timer_15m_button = tk.Button(controls_frame, text="(F11) 15분 타이머 시작", command=lambda: self.set_timer(15), bd=5,
                                           relief=tk.GROOVE)
         self.timer_15m_button.grid(row=8, column=1, padx=5, pady=5)
         self.timer_30m_button.grid(row=8, column=2, padx=5, pady=5)
