@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox, Checkbutton
 import logging
 from threading import Thread
 import pyautogui
@@ -25,10 +25,15 @@ class App:
     def __init__(self, master):
         self.master = master
         self.is_running = False  # Add this line to define is_running attribute
+
+        self.large_timer_open = False  # large_timer_window 상태 추적 플래그
+        self.large_timer_open = False  # 창의 상태를 추적하는 플래그
+
         self.image_var = tk.StringVar(value='sol_L10_Time10.png')  # Initialize image_var
         self.sound_file_path = os.path.join(BASE_DIR, 'resource', 'sound.wav')
-
         self.alarm_sound_file_path = os.path.join(BASE_DIR, 'resource', '탁상시계.wav')
+        self.last_window_position = None  # 마지막 창 위치 저장을 위한 변수
+
 
         row_counter = 0 #row_counter 초기화
 
@@ -36,9 +41,13 @@ class App:
         master.resizable(width=False, height=False)
         master.title("v1.2 메이플스토리 설치기 타이머")
 
+
+
+        #단축키
         keyboard.add_hotkey('F11', lambda: self.set_timer(15))
         keyboard.add_hotkey('F12', lambda: self.set_timer(30))
 
+        
         # Create a frame to hold the divided layout
         divided_frame = tk.Frame(master, bd=1, relief=tk.GROOVE)
         divided_frame.grid(row=0, column=0, padx=10, pady=10)
@@ -119,23 +128,30 @@ class App:
         # __init__ 메소드 내에서
         self.timer_label = tk.Label(controls_frame, text="남은 시간: 00:00:00", bd=5, relief=tk.GROOVE)
         self.timer_label.grid(row=8, column=0, padx=5, pady=5)
-        row_counter += 1
 
-        self.timer_30m_button = tk.Button(controls_frame, text="30분 타이머 시작", command=lambda: self.set_timer(30), bd=5,
+        self.timer_30m_button = tk.Button(controls_frame, text="(F12) 30분 타이머 시작", command=lambda: self.set_timer(30), bd=5,
                                           relief=tk.GROOVE)
-        self.timer_30m_button.grid(row=8, column=1, padx=5, pady=5)
-        row_counter += 1
 
-        self.timer_15m_button = tk.Button(controls_frame, text="15분 타이머 시작", command=lambda: self.set_timer(15), bd=5,
+        self.timer_15m_button = tk.Button(controls_frame, text="(F11) 15분 타이머 시작", command=lambda: self.set_timer(15),
+                                          bd=5,
                                           relief=tk.GROOVE)
-        self.timer_15m_button.grid(row=8, column=2, padx=5, pady=5)
-        row_counter += 1
+        self.timer_15m_button.grid(row=8, column=1, padx=5, pady=5)
+        self.timer_30m_button.grid(row=8, column=2, padx=5, pady=5)
 
-        # 창 닫기 이벤트 처리
-        master.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.alert_var = tk.BooleanVar()  # 체크 박스 상태를 저장할 변수
+        self.alert_checkbox = tk.Checkbutton(controls_frame, text="타이머 실수 방지 경고 창 표시", variable=self.alert_var)
+        self.alert_checkbox.grid(row=7, column=2, padx=5, pady=5, sticky="w")
 
+    def get_remaining_time(self):
+        if self.is_timer_running:
+            remaining = int(self.timer_end_time - time())
+            mins, secs = divmod(remaining, 60)
+            hours, mins = divmod(mins, 60)
+            return f"{hours:02d}:{mins:02d}:{secs:02d}"
+        else:
+            return "00:00:00"
 
-
+    ##############################
     def on_closing(self):
         self.stop_script()
         self.master.destroy()
@@ -188,6 +204,24 @@ class App:
             self.selected_file_label.config(text=f"현재 선택된 파일: {os.path.basename(self.sound_file_path)}")
 
     def set_timer(self, minutes):
+        if self.is_timer_running:
+            if self.alert_var.get():  # 체크박스가 선택된 경우
+                # 타이머가 이미 실행 중인 경우, 사용자에게 경고 메시지를 띄우고 타이머를 초기화합니다.
+                response = messagebox.askyesno("타이머 경고", "타이머가 이미 실행 중입니다. 재설정하시겠습니까?")
+                if response:
+                    # 사용자가 'Yes'를 선택한 경우, 타이머를 재설정합니다.
+                    self.reset_timer(minutes)
+            else:
+                # 체크박스가 선택되지 않은 경우, 경고 창 없이 타이머를 재설정합니다.
+                self.reset_timer(minutes)
+        else:
+            # 타이머가 실행 중이지 않은 경우, 새로운 타이머를 설정합니다.
+            self.reset_timer(minutes)
+
+    def reset_timer(self, minutes):
+        # 타이머 재설정 로직
+        self.is_timer_running = False
+        self.timer_label.config(text="남은 시간: 00:00:00")
         self.timer_end_time = time() + minutes * 60
         self.is_timer_running = True
         self.check_timer()
