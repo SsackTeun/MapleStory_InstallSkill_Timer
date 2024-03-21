@@ -37,9 +37,9 @@ class App:
 
         row_counter = 0 #row_counter 초기화
 
-        master.geometry("550x400")
+        master.geometry("600x450")
         master.resizable(width=False, height=False)
-        master.title("v1.2 메이플스토리 설치기 타이머")
+        master.title("v1.3 메이플스토리 설치기 타이머")
 
 
 
@@ -98,8 +98,8 @@ class App:
             '솔 야누스 30레벨 기준 10초 남음 기준': 'sol_L30_Time10.png',
             '솔 야누스 1~10레벨 기준 20초 남음 기준': 'sol_L10_Time20.png',
             '에르다 파운틴': 'fountain.png',
+            '인피니티': 'infinity.png'
         }
-
         row_counter = 4
         for text, value in self.image_options.items():
             radio_button = tk.Radiobutton(controls_frame, text=text, variable=self.image_var, value=value, bd=0,
@@ -127,15 +127,15 @@ class App:
         # 타이머 버튼 추가 (기존 UI 구성 코드에 추가)
         # __init__ 메소드 내에서
         self.timer_label = tk.Label(controls_frame, text="남은 시간: 00:00:00", bd=5, relief=tk.GROOVE)
-        self.timer_label.grid(row=8, column=0, padx=5, pady=5)
+        self.timer_label.grid(row=9, column=0, padx=5, pady=5)
 
         self.timer_30m_button = tk.Button(controls_frame, text="(F12) 30분 타이머 시작", command=lambda: self.set_timer(30), bd=5,
                                           relief=tk.GROOVE)
 
         self.timer_15m_button = tk.Button(controls_frame, text="(F11) 15분 타이머 시작", command=lambda: self.set_timer(15), bd=5,
                                           relief=tk.GROOVE)
-        self.timer_15m_button.grid(row=8, column=1, padx=5, pady=5)
-        self.timer_30m_button.grid(row=8, column=2, padx=5, pady=5)
+        self.timer_15m_button.grid(row=9, column=1, padx=5, pady=5)
+        self.timer_30m_button.grid(row=9, column=2, padx=5, pady=5)
 
         self.alert_var = tk.BooleanVar()  # 체크 박스 상태를 저장할 변수
         self.alert_checkbox = tk.Checkbutton(controls_frame, text="타이머 실수 방지 경고 창 표시", variable=self.alert_var)

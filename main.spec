@@ -21,7 +21,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='v1.2 메이플스토리 설치기 타이머',
+    name='v1.3 메이플스토리 설치기 타이머',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
